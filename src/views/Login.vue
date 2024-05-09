@@ -3,6 +3,8 @@
   import IntagramIcon from "vue-material-design-icons/Instagram.vue";
   import LinkedinIcon from "vue-material-design-icons/Linkedin.vue";
   import YoutubeIcon from "vue-material-design-icons/Youtube.vue";
+  import CheckboxBlankIcon from "vue-material-design-icons/CheckboxBlank.vue";
+  import CheckboxMarkedIcon from "vue-material-design-icons/CheckboxMarked.vue";
 
   {
     FacebookIcon;
@@ -31,11 +33,12 @@
         <img src="/src/assets/novaricalIcon.png" alt="scae-icon">
       </div>
       <form>
-        <input>
-        <input>
-        <div class="wrapper-remenber">
-          <button>
-            [] Lembrar meu usuário
+        <input placeholder="Usuário">
+        <input placeholder="Senha">
+        <div class="wrapper-remember">
+          <button class="btn-remember">
+            <CheckboxBlankIcon :size="20"/>
+            Lembrar meu usuário
           </button>
           <button class="btn-submit" type="submit">ENTRAR</button>
         </div>
@@ -83,7 +86,7 @@
   border-radius: 16px;
   margin: 80px 200px;
   padding: 2rem;
-  gap: 16px;
+  gap: 26px;
   background: linear-gradient(to bottom, rgb(255,255,255,1), 60%, rgb(255,255,255,0.3)), 40%;
 }
 
@@ -107,14 +110,34 @@ form {
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 26px;
   width: 100%;
-  border: solid red;
+}
+
+input {
+  width: 100%;
+  height: 50px;
+  border: none;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+.btn-remember {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  font-size: 1rem;
+  gap: 0.6rem;
+  padding: 0px 0.4rem;
 }
 
 .btn-submit {
   padding: 10px;
   border-radius: 4px;
+  cursor: pointer;
   font-size: 1rem;
   font-weight: 500;
   background-color: #676668;
@@ -122,11 +145,12 @@ form {
   border: none;
 }
 
-.wrapper-remenber {
+.wrapper-remember {
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
 }
 </style>
 
