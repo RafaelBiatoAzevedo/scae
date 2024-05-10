@@ -3,8 +3,8 @@
   import IntagramIcon from "vue-material-design-icons/Instagram.vue";
   import LinkedinIcon from "vue-material-design-icons/Linkedin.vue";
   import YoutubeIcon from "vue-material-design-icons/Youtube.vue";
-  import CheckboxBlankIcon from "vue-material-design-icons/CheckboxBlank.vue";
-  import CheckboxMarkedIcon from "vue-material-design-icons/CheckboxMarked.vue";
+  import CheckboxBlankIcon from "vue-material-design-icons/CheckboxBlankOutline.vue";
+  import CheckboxMarkedIcon from "vue-material-design-icons/CheckboxMarkedOutline.vue";
 
   {
     FacebookIcon;
@@ -20,10 +20,10 @@
       <img src="/src/assets/scaeIcon.svg" alt="scae-icon">
       <div class="wrapper-links">
         <a href="https://scae.adm.br/" target="_blank">https://scae.adm.br/</a>
-        <a href="https://scae.adm.br/" target="_blank"><FacebookIcon :size="30" fillColor="#ffffff" /></a>
-        <a href="https://scae.adm.br/" target="_blank"><IntagramIcon :size="30" fillColor="#ffffff" /></a>
-        <a href="https://scae.adm.br/" target="_blank"><LinkedinIcon :size="30" fillColor="#ffffff" /></a>
-        <a href="https://scae.adm.br/" target="_blank"><YoutubeIcon :size="30" fillColor="#ffffff" /></a>
+        <a href="https://scae.adm.br/" target="_blank"><FacebookIcon :size="30" fillColor="#F7CF92" /></a>
+        <a href="https://scae.adm.br/" target="_blank"><IntagramIcon :size="30" fillColor="#F7CF92" /></a>
+        <a href="https://scae.adm.br/" target="_blank"><LinkedinIcon :size="30" fillColor="#F7CF92" /></a>
+        <a href="https://scae.adm.br/" target="_blank"><YoutubeIcon :size="30" fillColor="#F7CF92" /></a>
       </div>
     </div>
     <div class="wrapper-login">
@@ -36,13 +36,13 @@
         <input placeholder="Usuário">
         <input placeholder="Senha">
         <div class="wrapper-remember">
-          <button class="btn-remember">
+          <button class="btn-remember" type="button">
             <CheckboxBlankIcon :size="20"/>
             Lembrar meu usuário
           </button>
           <button class="btn-submit" type="submit">ENTRAR</button>
         </div>
-        <p>Esqueceu sua senha?</p>
+        <a href="https://scae.adm.br/" target="_blank">Esqueceu sua senha?</a>
       </form>
     </div>
   </div>
@@ -67,6 +67,7 @@
 
 .wrapper-links {
   align-items: center;
+  justify-content: center;
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
@@ -74,19 +75,21 @@
 
 .wrapper-links>a {
   text-decoration: none;
-  color: #ffffffff;
+  font-weight: 400;
+  color: #F7CF92;
 }
 
 .wrapper-login {
   align-items: center;
+  justify-content: center;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   width: 464px;
   height: 552px;
-  border-radius: 16px;
   margin: 80px 200px;
   padding: 2rem;
-  gap: 26px;
+  gap: 30px;
   background: linear-gradient(to bottom, rgb(255,255,255,1), 60%, rgb(255,255,255,0.3)), 40%;
 }
 
@@ -102,7 +105,7 @@
 }
 
 .wrapper-login>div:first-child>img {
-  width: 140px;
+  width: 170px;
   height: 100px;
 }
 
@@ -110,8 +113,14 @@ form {
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 30px;
   width: 100%;
+}
+
+form>a {
+  text-decoration: underline;
+  margin-top: 2rem;
+  color: #000000;
 }
 
 input {
