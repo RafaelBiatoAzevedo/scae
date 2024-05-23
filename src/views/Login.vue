@@ -38,9 +38,15 @@
 
   const handleSubmit = (values: SignInRequestDTO) => {
     isLoading.value = true;
+
+    const strIsRemember = JSON.stringify(isRemember);
+    window.localStorage.setItem("@scae:isRemember", strIsRemember);
+
     if (isRemember) {
-      const strDataLogin = JSON.stringify(values)
+      const strDataLogin = JSON.stringify(values);
       window.localStorage.setItem("@scae:login", strDataLogin);
+    } else {
+      window.localStorage.removeItem("@scae:login");
     }
 
     try {
@@ -64,10 +70,13 @@
 
   onMounted(() => {
     const loginValuesStorage = window.localStorage.getItem("@scae:login");
+    const isRememberStorage = window.localStorage.getItem("@scae:isRemember");
 
     if (loginValuesStorage) {
       valuesSignin.value = JSON.parse(loginValuesStorage);
     }
+
+    isRemember.value = JSON.parse(isRememberStorage || "false");
   })
 </script>
 
