@@ -1,22 +1,30 @@
 <script setup lang="ts">
-
+  //@ts-ignore
   import FacebookIcon from "vue-material-design-icons/Facebook.vue";
+   //@ts-ignore
   import IntagramIcon from "vue-material-design-icons/Instagram.vue";
+   //@ts-ignore
   import LinkedinIcon from "vue-material-design-icons/Linkedin.vue";
+   //@ts-ignore
   import YoutubeIcon from "vue-material-design-icons/Youtube.vue";
+   //@ts-ignore
   import CheckboxBlankIcon from "vue-material-design-icons/CheckboxBlankOutline.vue";
+   //@ts-ignore
   import CheckboxMarkedIcon from "vue-material-design-icons/CheckboxMarkedOutline.vue";
+   //@ts-ignore
   import UserIcon from "vue-material-design-icons/FaceMan.vue";
+   //@ts-ignore
   import EyeIcon from "vue-material-design-icons/Eye.vue";
+   //@ts-ignore
   import EyeOffIcon from "vue-material-design-icons/EyeOff.vue";
 
-  import { ref} from "vue";
+  import { onMounted, ref} from "vue";
   import { router } from "../router";
   import { SignInRequestDTO } from "../dtos/SignInRequestDTO";
 
   const isLoading = ref<boolean>(false);
   const isRemember = ref<boolean>(true);
-  const isSecurity = ref<boolean>(false);
+  const isSecurity = ref<boolean>(true);
   const valuesSignin = ref({user: '', password: ''})
 
   const navigateFor = () => {
@@ -30,6 +38,11 @@
 
   const handleSubmit = (values: SignInRequestDTO) => {
     isLoading.value = true;
+    if (isRemember) {
+      const strDataLogin = JSON.stringify(values)
+      window.localStorage.setItem("@scae:login", strDataLogin);
+    }
+
     try {
       //function singnin scae request with data values, the next function
       console.log(values)
@@ -48,6 +61,14 @@
   const handleToggleSecurity = () =>  {
     isSecurity.value = !isSecurity.value;
   }
+
+  onMounted(() => {
+    const loginValuesStorage = window.localStorage.getItem("@scae:login");
+
+    if (loginValuesStorage) {
+      valuesSignin.value = JSON.parse(loginValuesStorage);
+    }
+  })
 </script>
 
 <template>
@@ -76,10 +97,11 @@
           <UserIcon :size="20" fillColor="#676668"/>
         </div>
         <div class="wrapper-input">
-          <input placeholder="Senha" name="password" v-bind:value="valuesSignin.password" type="password" v-bind:security={isSecurity} @change="(e) => changeValueInput(e)">
+          <input v-if="isSecurity" placeholder="Senha" name="password" v-bind:value="valuesSignin.password" type="password" @change="(e) => changeValueInput(e)">
+          <input v-if="!isSecurity" placeholder="Senha" name="password" v-bind:value="valuesSignin.password" type="text" @change="(e) => changeValueInput(e)">
           <button class="btn-security" type="button" @click="handleToggleSecurity">
-            <EyeIcon :size="20" v-if="isSecurity" fillColor="#676668"/>
-            <EyeOffIcon :size="20" v-if="!isSecurity" fillColor="#676668"/>
+            <EyeIcon :size="20" v-if="!isSecurity" fillColor="#676668"/>
+            <EyeOffIcon :size="20" v-if="isSecurity" fillColor="#676668"/>
           </button>
         </div>
         <div class="wrapper-remember">
@@ -134,9 +156,8 @@
   color: #F7CF92;
 }
 
-.wrapper-links>a:hover {
+.wrapper-links>a:hover, .wrapper-links-social>a:hover {
   transform : scale(1.3);
- 
 }
 
 .wrapper-login {
@@ -219,6 +240,7 @@ input:focus {
 .btn-security {
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .btn-remember {
