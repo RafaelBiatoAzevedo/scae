@@ -335,6 +335,10 @@ input:focus {
     gap: 10px;
   }
 
+  .wrapper-links>a:hover, .wrapper-links-social>a:hover {
+    transform : scale(1);
+  }
+
   .wrapper-links>a:first-child {
      margin-right: 0px;
   }
