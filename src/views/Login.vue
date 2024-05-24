@@ -18,12 +18,12 @@
    //@ts-ignore
   import EyeOffIcon from "vue-material-design-icons/EyeOff.vue";
 
-  import { onMounted, ref} from "vue";
+  import { onBeforeMount, ref} from "vue";
   import { router } from "../router";
   import { SignInRequestDTO } from "../dtos/SignInRequestDTO";
 
   const isLoading = ref<boolean>(false);
-  const isRemember = ref<boolean>(true);
+  const isRemember = ref<boolean>(false);
   const isSecurity = ref<boolean>(true);
   const valuesSignin = ref({user: '', password: ''})
 
@@ -32,21 +32,21 @@
   };
 
   const changeValueInput = (e: any) => {
-    console.log(e.target.name, e.target.value);
     valuesSignin.value = {...valuesSignin.value, [e.target.name]: e.target.value}
   }
 
   const handleSubmit = (values: SignInRequestDTO) => {
     isLoading.value = true;
 
-    const strIsRemember = JSON.stringify(isRemember);
+    const strIsRemember = JSON.stringify(isRemember.value);
     window.localStorage.setItem("@scae:isRemember", strIsRemember);
 
-    if (isRemember) {
-      const strDataLogin = JSON.stringify(values);
-      window.localStorage.setItem("@scae:login", strDataLogin);
+    if (isRemember.value) {
+      window.localStorage.setItem("@scae:user", valuesSignin.value.user);
+      window.localStorage.setItem("@scae:password", valuesSignin.value.password);
     } else {
-      window.localStorage.removeItem("@scae:login");
+      window.localStorage.removeItem("@scae:user");
+      window.localStorage.removeItem("@scae:password");
     }
 
     try {
@@ -68,15 +68,23 @@
     isSecurity.value = !isSecurity.value;
   }
 
-  onMounted(() => {
-    const loginValuesStorage = window.localStorage.getItem("@scae:login");
-    const isRememberStorage = window.localStorage.getItem("@scae:isRemember");
+  console.log("fora monted",isRemember.value)
 
-    if (loginValuesStorage) {
-      valuesSignin.value = JSON.parse(loginValuesStorage);
+   onBeforeMount(() => {
+    const  userItemStorage = window.localStorage.getItem("@scae:user");
+    const  passwordItemStorage = window.localStorage.getItem("@scae:password");
+    const  isRememberStorage = window.localStorage.getItem("@scae:isRemember");
+
+
+    if (userItemStorage && passwordItemStorage) {
+      valuesSignin.value = {user: userItemStorage, password: passwordItemStorage}
     }
 
-    isRemember.value = JSON.parse(isRememberStorage || "false");
+    if (isRememberStorage) {
+      isRemember.value = JSON.parse(isRememberStorage);
+    } else {
+      isRemember.value = false;
+    }
   })
 </script>
 
