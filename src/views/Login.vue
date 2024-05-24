@@ -311,7 +311,7 @@ input:focus {
   }
 }
 
-@media(max-width: 360px) {
+@media(max-width: 500px) {
   .wrapper {
     padding: 2rem;
   }
