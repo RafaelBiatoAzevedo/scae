@@ -1,23 +1,4 @@
 <script setup lang="ts">
-  //@ts-ignore
-  import FacebookIcon from "vue-material-design-icons/Facebook.vue";
-   //@ts-ignore
-  import IntagramIcon from "vue-material-design-icons/Instagram.vue";
-   //@ts-ignore
-  import LinkedinIcon from "vue-material-design-icons/Linkedin.vue";
-   //@ts-ignore
-  import YoutubeIcon from "vue-material-design-icons/Youtube.vue";
-   //@ts-ignore
-  import CheckboxBlankIcon from "vue-material-design-icons/CheckboxBlankOutline.vue";
-   //@ts-ignore
-  import CheckboxMarkedIcon from "vue-material-design-icons/CheckboxMarkedOutline.vue";
-   //@ts-ignore
-  import UserIcon from "vue-material-design-icons/FaceMan.vue";
-   //@ts-ignore
-  import EyeIcon from "vue-material-design-icons/Eye.vue";
-   //@ts-ignore
-  import EyeOffIcon from "vue-material-design-icons/EyeOff.vue";
-
   import { onBeforeMount, ref} from "vue";
   import { router } from "../router";
   import { SignInRequestDTO } from "../dtos/SignInRequestDTO";
@@ -68,9 +49,8 @@
     isSecurity.value = !isSecurity.value;
   }
 
-  console.log("fora monted",isRemember.value)
 
-   onBeforeMount(() => {
+  onBeforeMount(() => {
     const  userItemStorage = window.localStorage.getItem("@scae:user");
     const  passwordItemStorage = window.localStorage.getItem("@scae:password");
     const  isRememberStorage = window.localStorage.getItem("@scae:isRemember");
@@ -89,142 +69,101 @@
 </script>
 
 <template>
-  <div class="wrapper">
-    <div class="wrapper-menu">
-      <img src="/src/assets/scaeIcon.svg" alt="scae-icon">
-      <div class="wrapper-links">
-        <a href="https://scae.adm.br/" target="_blank">https://scae.adm.br/</a>
-        <div class="wrapper-links-social">
-          <a href="https://scae.adm.br/" target="_blank"><FacebookIcon :size="30" fillColor="#F7CF92" /></a>
-          <a href="https://scae.adm.br/" target="_blank"><IntagramIcon :size="30" fillColor="#F7CF92" /></a>
-          <a href="https://scae.adm.br/" target="_blank"><LinkedinIcon :size="30" fillColor="#F7CF92" /></a>
-          <a href="https://scae.adm.br/" target="_blank"><YoutubeIcon :size="30" fillColor="#F7CF92" /></a>
-        </div>
-      </div>
-    </div>
-    <div class="wrapper-login">
-      <div>
-        <p>Seja bem-vindo(a) ao</p>
-        <h1>SISTEMA PARA GESTÃO DE LOTEAMENTOS</h1>
-        <img src="/src/assets/novaricalIcon.png" alt="scae-icon">
-      </div>
-      <form>
-        <div class="wrapper-input">
-          <input placeholder="Usuário" name="user" @change="(e) => changeValueInput(e)" v-bind:value="valuesSignin.user" type="text" autocapitalize={false} autocomplete={false} autofocus >
-          <UserIcon :size="20" fillColor="#676668"/>
-        </div>
-        <div class="wrapper-input">
-          <input v-if="isSecurity" placeholder="Senha" name="password" v-bind:value="valuesSignin.password" type="password" @change="(e) => changeValueInput(e)">
-          <input v-if="!isSecurity" placeholder="Senha" name="password" v-bind:value="valuesSignin.password" type="text" @change="(e) => changeValueInput(e)">
-          <button class="btn-security" type="button" @click="handleToggleSecurity">
-            <EyeIcon :size="20" v-if="!isSecurity" fillColor="#676668"/>
-            <EyeOffIcon :size="20" v-if="isSecurity" fillColor="#676668"/>
-          </button>
-        </div>
-        <div class="wrapper-remember">
-          <button class="btn-remember" type="button" @click="handleToggleRemember">
-            <CheckboxBlankIcon :size="20" v-if="!isRemember"/>
-            <CheckboxMarkedIcon :size="20" v-if="isRemember"/>
-            Lembrar meu usuário
-          </button>
-          <button class="btn-submit" type="submit" @click="() => handleSubmit(valuesSignin)">ENTRAR</button>
-        </div>
-        <a href="https://scae.adm.br/" target="_blank">Esqueceu sua senha?</a>
-      </form>
-    </div>
-  </div>
+  <v-app>
+    <v-main class="main-wrapper" style="border: solid red;">
+      <v-container class="d-flex-col fill-height align-start" style="border: solid black;">
+        <v-container class="d-flex align-center justify-space-between">
+          <img  src="/src/assets/scaeIcon.svg" alt="scae-icon"></img>
+          <v-row class="align-center justify-end ga-sm-3">
+            <a style="margin-right: 30px" href="https://scae.adm.br/" target="_blank">https://scae.adm.br/</a>
+            <a href="https://scae.adm.br/" target="_blank"><span class="mdi mdi-facebook icon"></span></a>
+            <a href="https://scae.adm.br/" target="_blank"><span class="mdi mdi-instagram icon"></span></a>
+            <a href="https://scae.adm.br/" target="_blank"><span class="mdi mdi-linkedin icon"></span></a>
+            <a href="https://scae.adm.br/" target="_blank"><span class="mdi mdi-youtube icon"></span></a>
+          </v-row>
+        </v-container>
+        <v-container class="wrapper-login rounded-lg">
+          <v-col class="text-center">
+            <p>Seja bem-vindo(a) ao</p>
+            <h4>SISTEMA PARA GESTÃO DE LOTEAMENTOS</h4>
+            <img style="width: 200px; height: 100px;" src="/src/assets/novaricalIcon.png" alt="scae-icon">
+          </v-col>
+        </v-container>
+        <v-container>
+            
+                    <!-- <v-container>
+                      <v-form>
+                        <v-row class="wrapper-input">
+                          <input placeholder="Usuário" name="user" @change="(e) => changeValueInput(e)" v-bind:value="valuesSignin.user" type="text" autocapitalize={false} autocomplete={false} autofocus >
+                          <span class="mdi mdi-account input-icon"></span>
+                        </v-row>
+                        <v-row>
+                          <input v-if="isSecurity" placeholder="Senha" name="password" v-bind:value="valuesSignin.password" type="password" @change="(e) => changeValueInput(e)">
+                          <input v-if="!isSecurity" placeholder="Senha" name="password" v-bind:value="valuesSignin.password" type="text" @change="(e) => changeValueInput(e)">
+                          <button class="btn-security" type="button" @click="handleToggleSecurity">
+                            <span class="mdi mdi-eye input-icon" v-if="!isSecurity"></span>
+                            <span class="mdi mdi-eye-off input-icon" v-if="isSecurity"></span>
+                          </button>
+                        </v-row>
+                        <v-checkbox label="Checkbox"></v-checkbox>
+                        <-<v-row>
+                          <v-btn type="button" @click="handleToggleRemember">
+                            <span class="mdi mdi-check input-icon" v-if="!isRemember"></span>
+                            <span class="mdi mdi-check input-icon" v-if="isRemember"></span>
+                            Lembrar meu usuário
+                          </v-btn>
+                          <v-btn class="btn-submit" type="submit" @click="() => handleSubmit(valuesSignin)">
+                            ENTRAR
+                          </v-btn>
+                        </v-row>
+                        <a href="https://scae.adm.br/" target="_blank">Esqueceu sua senha?</a>
+                      </v-form>
+                  </v-container> -->
+          </v-container>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped>
-.wrapper {
-  display: flex;
-  flex-direction: column;
+.main-wrapper {
   background-image: url(/src/assets//backgroundLogin2.jpg);
   background-size: cover;
 
   width: 100vw;
   height: 100vh;
-  padding: 3rem;
-  gap: 10px;
+  padding: 2rem;
 }
 
-.wrapper-menu {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+.wrapper-login {
+  width: 500px;
+  height: 620px;
+  margin: 80px 200px;
+  background: linear-gradient(to bottom, rgb(255,255,255,1), 60%, rgb(255,255,255,0.3)), 40%;
 }
 
-.wrapper-links, .wrapper-links-social {
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
-}
-
-.wrapper-links>a:first-child {
-  margin-right: 2rem;
-}
-
-.wrapper-links>a {
+a {
+  text-decoration: none;
+  cursor: pointer;
   text-decoration: none;
   font-weight: 400;
   color: #F7CF92;
 }
 
-.wrapper-links>a:hover, .wrapper-links-social>a:hover {
-  transform : scale(1.3);
+.icon {
+  color: #F7CF92;
+  font-size: 30px;
 }
 
-.wrapper-login {
-  align-items: center;
-  justify-content: center;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  height: 620px;
-  margin: 80px 200px;
-  padding: 2rem 3rem;
-  gap: 30px;
-  background: linear-gradient(to bottom, rgb(255,255,255,1), 60%, rgb(255,255,255,0.3)), 40%;
+.input-icon {
+  color: "#676668";
+  font-size: 20px;
 }
 
-.wrapper-login>div>h1:nth-child(2) {
-  font-weight: bold;
-  font-size: 1rem;
+a:hover {
+  transform: scale(1.2);
 }
 
-.wrapper-login>div {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-
-}
-
-.wrapper-login>div:first-child>img {
-  width: 180px;
-  height: 100px;
-  object-fit: contain;
-}
-
-form {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  width: 100%;
-
-}
-
-form>a {
-  text-decoration: underline;
-  margin-top: 2rem;
-  color: #000000;
-  
-}
 .wrapper-input {
   background-color: #ffffff;
   align-items: center;
@@ -290,7 +229,7 @@ input:focus {
   justify-content: space-between;
   width: 100%;
 }
-
+/* 
 @media(max-width: 1440px) {
     .wrapper {
       padding: 4rem;
@@ -362,7 +301,7 @@ input:focus {
     gap: 12px;
   }
  
-}
+} */
 
 </style>
 
